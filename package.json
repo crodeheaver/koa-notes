@@ -1,0 +1,31 @@
+{
+  "name": "noted-koa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "colby rodeheaver",
+  "license": "MIT",
+  "dependencies": {
+    "@koa/cors": "^2.2.1",
+    "bcrypt": "^2.0.1",
+    "chokidar": "^2.0.3",
+    "cross-env": "^5.1.4",
+    "dotenv": "^5.0.1",
+    "joi": "^13.4.0",
+    "jsonwebtoken": "^8.2.2",
+    "koa": "^2.5.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-helmet": "^4.0.0",
+    "koa-jwt": "^3.3.2",
+    "koa-logger": "^3.2.0",
+    "koa-respond": "^1.0.1",
+    "koa-router": "^7.4.0",
+    "lodash": "^4.17.10",
+    "sequelize": "^4.37.10",
+    "sqlite3": "^4.0.0",
+    "uuid": "^3.2.1"
+  }
+}
