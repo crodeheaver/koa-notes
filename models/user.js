@@ -31,8 +31,12 @@ const User = connection.define('user', {
   updatedAt: Sequelize.DATE,
 });
 
+const UserNotes = connection.define('UserNote', {
+accessType: Sequelize.STRING(1)
+})
 
-Note.belongsToMany(User, {through: 'UserNote'});
-User.belongsToMany(Note, {through: 'UserNote'});
+
+Note.belongsToMany(User, {through: UserNotes});
+User.belongsToMany(Note, {through: UserNotes});
 
 module.exports = User

@@ -18,9 +18,9 @@ async function genToken(user){
 async function register (ctx) {
   const body = ctx.request.body
   const salt = await bcrypt.genSalt()
-  
-  const passwordHash = await bcrypt.hash(body.passwordConfirmation, salt)
 
+  const passwordHash = await bcrypt.hash(body.passwordConfirmation, salt)
+  
   const user =  Object.assign({}, _.omit(body, 'passwordConfirmation'), {salt, passwordHash })
 
   const newUser = await User.create(user)

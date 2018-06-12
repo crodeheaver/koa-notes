@@ -9,17 +9,16 @@ async function getOne (ctx) {
 }
 
 async function getNotes (ctx) {
-  console.log('there')
-  return ctx.ok(await User.getNotes(ctx.state.user.id))
+  return ctx.ok(await User.getNotes(ctx.request.id))
 }
 
 async function createNote (ctx) {
-  return ctx.ok(await User.createNote(ctx.state.user.id, ctx.request.body))
+  return ctx.ok(await User.createNote(ctx.request.id, ctx.request.body))
 }
 
 module.exports = {
   getAll,
   getOne,
   getNotes,
-  createNote
-}
+  createNote,
+ }

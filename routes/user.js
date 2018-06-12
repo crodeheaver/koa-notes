@@ -3,11 +3,9 @@ const router = new Router()
 const Ctrl = require('../controllers/user')
 
 router.get('/', Ctrl.getAll)
-router.get('/notes', Ctrl.getNotes)
-router.post('/notes', Ctrl.createNote)
-router.put('/notes/:id', Ctrl.createNote)
-router.delete('/notes/:id', Ctrl.createNote)
 router.get('/:id', Ctrl.getOne)
+router.get('/:id/notes', Ctrl.getNotes)
+router.post('/:id/notes', Ctrl.createNote)
 
 
 module.exports = router.routes()

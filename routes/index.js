@@ -7,4 +7,6 @@ module.exports = (router) => {
   router.use(jwt({ secret: 'shared-secret' }))
     
   router.use('/user', require('./user'))
+
+  router.use('/note', require('./note'))
 }
