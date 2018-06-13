@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === 'development') {
   app.use(Logger())
 }
 
-app.use(Cors())
+app.use(Cors({origin: 'http://localhost:3000', 'allowHeaders': ['Authorization', 'Content-Type', 'Origin', 'X-Requested-With', 'Accept'], 'credentials':'true'}))
 app.use(BodyParser({
   enableTypes: ['json'],
   jsonLimit: '5mb',

@@ -35,8 +35,12 @@ async function login (ctx) {
 
   const passwordHash = await bcrypt.hash(body.password, user.salt)
 
+  const jwt = await genToken(user)
+
+  ctx.cookies.set('Authorization', jwt.token, {httpOnly: true})
+
   return passwordHash == user.passwordHash ? 
-  ctx.ok(await genToken(user)) :
+  ctx.ok() :
   ctx.bad("incorrect password")
 }
 

@@ -9,11 +9,11 @@ async function getOne (ctx) {
 }
 
 async function getNotes (ctx) {
-  return ctx.ok(await User.getNotes(ctx.request.id))
+  return ctx.ok(await User.getNotes(ctx.params.id))
 }
 
 async function createNote (ctx) {
-  return ctx.ok(await User.createNote(ctx.request.id, ctx.request.body))
+  return ctx.ok(await User.createNote(ctx.params.id, ctx.request.body))
 }
 
 module.exports = {

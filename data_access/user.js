@@ -15,6 +15,7 @@ const getOneByEmail = (email) => {
 }
 
 const getNotes = (id) => {
+  console.log(id)
   return getOne(id).then((user)=> user.getNotes())
 }
 

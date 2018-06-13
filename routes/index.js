@@ -4,7 +4,7 @@ module.exports = (router) => {
 
   router.use('/auth', require('./auth'))
     
-  router.use(jwt({ secret: 'shared-secret' }))
+  router.use(jwt({ secret: 'shared-secret', cookie: 'Authorization' }))
     
   router.use('/user', require('./user'))
 
