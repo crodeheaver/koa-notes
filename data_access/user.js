@@ -3,7 +3,7 @@ const uuidv4 = require('uuid/v4')
 
 const getAll = () => {
   return User.findAll({ attributes: ['id', 'username', 'email']})
-  .catch(err => err)
+    .catch(err => err)
 }
 
 const getOne = (id) => {
@@ -11,20 +11,19 @@ const getOne = (id) => {
 }
 
 const getOneByEmail = (email) => {
-  return User.findOne({email}, { attributes: ['id', 'username', 'email']})
+  return User.findOne({ where: {email}}, { attributes: ['id', 'username', 'email']})
 }
 
 const getNotes = (id) => {
-  console.log(id)
-  return getOne(id).then((user)=> user.getNotes())
+  return getOne(id).then((user) => user.getNotes())
 }
 
-const create = (user) =>{
+const create = (user) => {
   return User.create(Object.assign({}, user, {id: uuidv4()}))
 }
 
 const createNote = (id, note) => {
-  return getOne(id).then((user)=> user.createNote(Object.assign({}, note, {id: uuidv4()}), { through: { accessType: 'O'}}))
+  return getOne(id).then((user) => user.createNote(Object.assign({}, note, {id: uuidv4()}), { through: { accessType: 'O'}}))
 }
 
 module.exports = {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -8,6 +8,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import { Link } from "react-router-dom";
 import Typography from '@material-ui/core/Typography';
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 const drawerWidth = 240;
 
@@ -36,41 +38,70 @@ const styles = theme => ({
     toolbar: theme.mixins.toolbar,
 });
 
-function ClippedDrawer(props) {
-    const { classes } = props;
+class ClippedDrawer extends Component {
 
-    return (
-        <div className={classes.root}>
-            <AppBar position="absolute" className={classes.appBar}>
-                <Toolbar>
-                    <Typography variant="title" color="inherit" noWrap>
-                        Notes
+
+    render = () => {
+        const { classes } = this.props
+        return (
+            <div className={classes.root}>
+                <AppBar position="absolute" className={classes.appBar}>
+                    <Toolbar>
+                        <Typography variant="title" color="inherit" noWrap>
+                            Notes
                     </Typography>
-                </Toolbar>
-            </AppBar>
-            <Drawer
-                variant="permanent"
-                classes={{
-                    paper: classes.drawerPaper,
-                }}
-            >
-                <div className={classes.toolbar} />
-                <List>
-                    <ListItem button component={Link} to="/" >
-                        Home
-                    </ListItem>
-                </List>
-            </Drawer>
-            <main className={classes.content}>
-                <div className={classes.toolbar} />
-                {props.children}
-            </main>
-        </div>
-    );
+                    </Toolbar>
+                </AppBar>
+                <Drawer
+                    variant="permanent"
+                    classes={{
+                        paper: classes.drawerPaper,
+                    }}
+                >
+                    <div className={classes.toolbar} />
+                    <List>
+                        {this.props.auth.isAuthenticated ?
+                            (
+                                <div>
+                                    <ListItem button component={Link} to="/" >
+                                        All
+                                </ListItem>
+                                    <ListItem button component={Link} to="/" >
+                                        Logout
+                                </ListItem>
+                                </div>
+                            )
+                            :
+                            this.props.location.pathname === '/login' ?
+                                (
+                                    <ListItem button component={Link} to="/signup" >
+                                        Sign Up
+                                    </ListItem>
+                                )
+                                :
+                                (
+                                    <ListItem button component={Link} to="/login" >
+                                        Login
+                                    </ListItem>
+                                )
+                        }
+                    </List>
+                </Drawer>
+                <main className={classes.content}>
+                    <div className={classes.toolbar} />
+                    {this.props.children}
+                </main>
+            </div>
+        );
+    }
 }
 
 ClippedDrawer.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ClippedDrawer);
+const mapStateToProps = state => ({
+    ...state
+})
+
+export default withStyles(styles)(withRouter(connect(mapStateToProps)(ClippedDrawer)));

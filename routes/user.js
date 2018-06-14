@@ -7,5 +7,4 @@ router.get('/:id', Ctrl.getOne)
 router.get('/:id/notes', Ctrl.getNotes)
 router.post('/:id/notes', Ctrl.createNote)
 
-
 module.exports = router.routes()

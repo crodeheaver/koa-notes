@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const Sequelize = require('sequelize')
 
 const connection = new Sequelize('noted', null, null, {
   dialect: 'sqlite',
@@ -10,6 +10,6 @@ const connection = new Sequelize('noted', null, null, {
   },
   storage: './database.sqlite',
   operatorsAliases: false
-});
+})
 
 module.exports = connection

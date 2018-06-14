@@ -1,21 +1,27 @@
 import { combineReducers } from 'redux'
-import { LOGIN, SIMPLE_ACTION } from './actions'
-
+import { LOGIN, LOGIN_ERROR } from './actions'
+import { Cookies } from 'react-cookie'
 const initialState = {
-  isAuthenticated: true,
-  simpleMessage: ''
+  isAuthenticated: false,
+  loginError: ''
 }
 
-function auth(state = initialState, action) {
+function auth (state = initialState, action) {
   switch (action.type) {
     case LOGIN:
-      return {
-        ...state        
-      }
-      case SIMPLE_ACTION:
+
+      const cookie = new Cookies()
+      console.log(cookie.getAll())
       return {
         ...state,
-        simpleMessage: action.payload
+        loginError: '',
+        isAuthenticated: true,
+        user: action.payload
+      }
+    case LOGIN_ERROR:
+      return {
+        ...state,
+        loginError: action.payload
       }
     default:
       return state

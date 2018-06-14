@@ -20,5 +20,5 @@ module.exports = {
   getAll,
   getOne,
   getNotes,
-  createNote,
- }
+  createNote
+}

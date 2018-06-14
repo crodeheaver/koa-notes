@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const Note = require('./note')
-const connection = require('../data_access/connection');
+const connection = require('../data_access/connection')
 
 const User = connection.define('user', {
   id: {
@@ -22,21 +22,20 @@ const User = connection.define('user', {
     allowNull: false,
     unique: true
   },
-  salt:{
+  salt: {
     type: Sequelize.STRING(16).BINARY,
     allowNull: false,
     unique: true
   },
   createdAt: Sequelize.DATE,
-  updatedAt: Sequelize.DATE,
-});
-
-const UserNotes = connection.define('UserNote', {
-accessType: Sequelize.STRING(1)
+  updatedAt: Sequelize.DATE
 })
 
+const UserNotes = connection.define('UserNote', {
+  accessType: Sequelize.STRING(1)
+})
 
-Note.belongsToMany(User, {through: UserNotes});
-User.belongsToMany(Note, {through: UserNotes});
+Note.belongsToMany(User, {through: UserNotes})
+User.belongsToMany(Note, {through: UserNotes})
 
 module.exports = User

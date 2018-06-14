@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const connection = require('../data_access/connection');
+const connection = require('../data_access/connection')
 
 const Note = connection.define('note', {
   id: {
@@ -9,7 +9,7 @@ const Note = connection.define('note', {
   title: Sequelize.STRING(50),
   text: Sequelize.STRING(500),
   createdAt: Sequelize.DATE,
-  updatedAt: Sequelize.DATE,
-});
+  updatedAt: Sequelize.DATE
+})
 
 module.exports = Note
