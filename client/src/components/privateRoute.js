@@ -1,13 +1,15 @@
-import React from 'react'
-import { Redirect } from 'react-router-dom'
+import React from 'react';
 import { connect } from 'react-redux'
+import { Route, Redirect } from 'react-router-dom';
 
-export default function (ComposedComponent) {
-  const PrivateRoute = (props) => props.authenticated ? <ComposedComponent {...props} /> : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={props => (
+        rest.auth.isAuthenticated
+            ? <Component {...props} />
+            : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+    )} />
+)
 
-  const mapStateToProps = state => {
-    return { authenticated: state.auth.isAuthenticated }
-  }
+const wrappedPrivateRoute = connect((state) => ({...state}))(PrivateRoute)
 
-  return connect(mapStateToProps)(PrivateRoute)
-}
+export { wrappedPrivateRoute as PrivateRoute}

@@ -44,7 +44,24 @@ async function login (ctx) {
     : ctx.throw(400, 'email or password incorrect')
 }
 
+async function logout (ctx) {
+  ctx.cookies.set('Authorization', null)
+
+  return ctx.ok()
+}
+
+async function getLoggedInUser (ctx) {
+  console.log(ctx.state.user)
+  const user = await User.getOneByEmail(ctx.state.user.email)
+
+  return user !== null
+    ? ctx.ok(user)
+    : ctx.throw(400, 'not logged in')
+}
+
 module.exports = {
   register,
-  login
+  login,
+  logout,
+  getLoggedInUser
 }

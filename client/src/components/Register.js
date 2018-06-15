@@ -11,7 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import { CardHeader } from '@material-ui/core';
 
-class Signup extends Component {
+class Register extends Component {
 
     constructor(props) {
         super(props);
@@ -68,4 +68,6 @@ const mapDispatchToProps = dispatch => ({
     simpleAction: () => dispatch(simpleAction())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Signup)
+const wrappedRegister = connect(mapStateToProps, mapDispatchToProps)(Register)
+
+export { wrappedRegister as Register}

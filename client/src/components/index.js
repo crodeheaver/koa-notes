@@ -1,0 +1,6 @@
+export { PrivateRoute } from './PrivateRoute'
+export { ProtectedRoute } from './ProtectedRoute'
+export { Layout } from './Layout'
+export { Home } from './Home'
+export { LoginPage } from './LoginPage'
+export { Register } from './Register'
