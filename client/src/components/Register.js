@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { login, simpleAction } from '../store/actions'
+import { login } from '../store/actions'
 import { connect } from 'react-redux'
 
 import TextField from '@material-ui/core/TextField'
@@ -53,7 +53,6 @@ class Register extends Component {
             </CardContent>
             <CardActions>
                 <Button size="small" onClick={() => this.props.login(this.state.email, this.state.password) }>Submit</Button>
-                <Button size="small" onClick={() => this.props.simpleAction(this.state.email, this.state.password) }>Submit</Button>
             </CardActions>
         </Card>
     )
@@ -64,9 +63,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    login: (email, password) => dispatch(login(email, password)),
-    simpleAction: () => dispatch(simpleAction())
-})
+    login: (email, password) => dispatch(login(email, password))})
 
 const wrappedRegister = connect(mapStateToProps, mapDispatchToProps)(Register)
 

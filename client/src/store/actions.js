@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { history } from '../helpers/history'
+import { history } from '../helpers'
 
 const instance = axios.create({
   baseURL: 'http://localhost:5000/v1/',
@@ -16,16 +16,19 @@ const instance = axios.create({
 export const LOGIN = 'LOGIN'
 export const GET_USER_INFO = 'GET_USER_INFO'
 export const LOGOUT = 'LOGOUT'
-export const SIMPLE_ACTION = 'SIMPLE_ACTION'
 export const LOGIN_ERROR = 'LOGIN_ERROR'
 
 export const login = (email, password) => dispatch => {
   return instance.post(`auth/login`, { email, password })
     .then(
-      response => dispatch({
+      response => {
+        dispatch({
         type: LOGIN,
         payload: response
-      }),
+      })
+      console.log('dispatched')
+      history.push('/')
+    },
       error => dispatch({ type: LOGIN_ERROR, payload: error.response.data})
     )
 }
@@ -48,19 +51,12 @@ export const getUserInfo = () => dispatch => {
 export const logout = () => dispatch => {
   return instance.post(`auth/logout`)
     .then(
-      () => dispatch({
+      () => {
+        dispatch({
         type: LOGOUT
-      }),
+      })
+      history.push('/login')
+    },
       error => ''
-    )
-}
-
-export const simpleAction = () => dispatch => {
-  return instance.get(`user/f192b9ce-64eb-4542-9310-4e36091a1cdd/notes`)
-    .then(
-      () => dispatch({
-        type: 'SIMPLE_ACTION'
-      }),
-      error => console.log('An error occurred.', error)
     )
 }

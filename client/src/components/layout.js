@@ -1,18 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types';
-import { getUserInfo, logout } from '../store/actions'
-
 import { Link } from "react-router-dom";
-import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Typography from '@material-ui/core/Typography';
-import { PrivateRoute, ProtectedRoute, Home, LoginPage, Register } from './'
+import { withStyles, Drawer, AppBar, Toolbar, List, ListItem, Typography } from '@material-ui/core'
 
 const drawerWidth = 240;
 
@@ -42,13 +31,10 @@ const styles = theme => ({
 });
 
 class Layout extends Component {
-  
-  logout = () => {
-    this.props.logout()
-  }
+
   render = () => {
     const { classes } = this.props
-    const isAuthenticated = this.props.auth.isAuthenticated
+    const { isAuthenticated, location, onLogoutClick } = this.props
     return (
       <div className={classes.root}>
         <AppBar position="absolute" className={classes.appBar}>
@@ -72,13 +58,13 @@ class Layout extends Component {
                   <ListItem button component={Link} to="/" >
                     All
                   </ListItem>
-                  <ListItem button onClick={this.logout}>
+                  <ListItem button onClick={onLogoutClick}>
                     Logout
                   </ListItem>
                 </div>
               )
               :
-              this.props.location.pathname === '/login' ?
+              location === '/login' ?
                 (
                   <ListItem button component={Link} to="/signup" >
                     Sign Up
@@ -95,9 +81,7 @@ class Layout extends Component {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <PrivateRoute path='/' component={Home} />
-          <ProtectedRoute path='/login' component={LoginPage} isAuthenticated={isAuthenticated} />
-          <ProtectedRoute path='/signup' component={Register} isAuthenticated={isAuthenticated} />
+          {this.props.children}
         </main>
       </div>
     );
@@ -108,13 +92,5 @@ Layout.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapDispatchToProps = dispatch => ({
-  getUserInfo: () => dispatch(getUserInfo()),
-  logout: () => dispatch(logout())
-})
-
-const mapStateToProps = state => ({
-  ...state
-})
-const wrappedLayout = withStyles(styles)(withRouter(connect(mapStateToProps, mapDispatchToProps)(Layout)))
+const wrappedLayout = withStyles(styles)(Layout)
 export { wrappedLayout as Layout }

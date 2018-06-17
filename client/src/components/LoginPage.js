@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {TextField, Card, CardActions, CardContent, CardHeader, Input, FormControl, FormLabel, FormGroup} from '@material-ui/core'
+import { Redirect } from 'react-router-dom';
 import { login } from '../store/actions'
 
 class LoginPage extends Component {
@@ -18,10 +19,18 @@ class LoginPage extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.props.login(this.state.email, this.state.password).then(() => this.props.auth.isAuthenticated && this.props.history.go('/home'))
+    this.props.login(this.state.email, this.state.password)
   }
 
-  render = () => (
+  render = () => {
+    
+    if (this.props.auth.isAuthenticated === true) {
+      console.log(`here ${this.props.auth.isAuthenticated}`)
+      return <Redirect to='/' />
+    }
+
+    return (
+    
     <Card>
       <CardHeader title="Login" />
       <form onSubmit={this.handleSubmit}>
@@ -57,7 +66,7 @@ class LoginPage extends Component {
         </CardActions>
       </form>
     </Card>
-  )
+  )}
 }
 
 const mapStateToProps = state => ({
