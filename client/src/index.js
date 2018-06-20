@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import configureStore from './store/store'
-import { getUserInfo } from './store/actions'
+import { getUserInfo } from './store/authActions'
 import { Router, Switch, Route } from 'react-router-dom'
 import { history } from './helpers';
 
@@ -17,8 +17,6 @@ const userinfo = async () => {
 }
 
 userinfo().then(() => {
-  const state = store.getState()
-  console.log(state)
   ReactDOM.render(
     <Provider store={store}>
       <Router history={history}>

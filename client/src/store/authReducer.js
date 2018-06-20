@@ -1,14 +1,20 @@
-import { combineReducers } from 'redux'
-import { LOGIN, LOGIN_ERROR, LOGOUT } from './actions'
+import { LOGIN, LOGIN_ERROR, LOGOUT, REGISTER } from './authActions'
 
 const initialState = {
   isAuthenticated: false,
   loginError: ''
 }
 
-function auth(state = initialState, action) {
+function AuthReducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN:
+      return {
+        ...state,
+        loginError: '',
+        isAuthenticated: true,
+        user: action.payload
+      }
+    case REGISTER:
       return {
         ...state,
         loginError: '',
@@ -32,8 +38,6 @@ function auth(state = initialState, action) {
   }
 }
 
-const reducers = combineReducers({
-  auth
-})
 
-export default reducers
+
+export default AuthReducer

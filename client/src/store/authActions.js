@@ -1,32 +1,34 @@
-import axios from 'axios'
+import axios from './axios'
 import { history } from '../helpers'
-
-const instance = axios.create({
-  baseURL: 'http://localhost:5000/v1/',
-  timeout: 1000,
-  withCredentials: true,
-  credentials: true,
-  crossDomain: true,
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-  }
-})
 
 export const LOGIN = 'LOGIN'
 export const GET_USER_INFO = 'GET_USER_INFO'
 export const LOGOUT = 'LOGOUT'
 export const LOGIN_ERROR = 'LOGIN_ERROR'
+export const REGISTER = 'REGISTER'
 
 export const login = (email, password) => dispatch => {
-  return instance.post(`auth/login`, { email, password })
+  return axios.post(`auth/login`, { email, password })
     .then(
       response => {
         dispatch({
         type: LOGIN,
-        payload: response
+        payload: response.data
       })
-      console.log('dispatched')
+      history.push('/')
+    },
+      error => dispatch({ type: LOGIN_ERROR, payload: error.response.data})
+    )
+}
+
+export const register = (email, username, password, passwordConfirmation) => dispatch => {
+  return axios.post(`auth/register`, { email, username, password, passwordConfirmation })
+    .then(
+      response => {
+        dispatch({
+        type: REGISTER,
+        payload: response.data
+      })
       history.push('/')
     },
       error => dispatch({ type: LOGIN_ERROR, payload: error.response.data})
@@ -34,12 +36,12 @@ export const login = (email, password) => dispatch => {
 }
 
 export const getUserInfo = () => dispatch => {
-  return instance.get(`auth/user`)
+  return axios.get(`auth/user`)
     .then(
       response => {
         dispatch({
         type: LOGIN,
-        payload: response
+        payload: response.data
       })
       history.push('/')
     }
@@ -49,7 +51,7 @@ export const getUserInfo = () => dispatch => {
 }
 
 export const logout = () => dispatch => {
-  return instance.post(`auth/logout`)
+  return axios.post(`auth/logout`)
     .then(
       () => {
         dispatch({

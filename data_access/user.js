@@ -11,7 +11,7 @@ const getOne = (id) => {
 }
 
 const getOneByEmail = (email) => {
-  return User.findOne({ where: {email}}, { attributes: ['id', 'username', 'email']})
+  return User.findOne({ where: {email}, attributes: ['id', 'username', 'email']})
 }
 
 const getNotes = (id) => {

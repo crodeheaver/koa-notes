@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {TextField, Card, CardActions, CardContent, CardHeader, Input, FormControl, FormLabel, FormGroup} from '@material-ui/core'
 import { Redirect } from 'react-router-dom';
-import { login } from '../store/actions'
+import { login } from '../store/authActions'
 
 class LoginPage extends Component {
 
