@@ -1,10 +1,10 @@
-{
+,{
   "name": "noted-koa",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./dbSync.js && node ./index.js"
+    "start": "node ./dbSync.js && node ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "colby rodeheaver",
